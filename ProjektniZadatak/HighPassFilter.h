@@ -3,5 +3,7 @@
 class HighPassFilter :
     public Filter
 {
+public:
+    void filterSignal();
 };
 
