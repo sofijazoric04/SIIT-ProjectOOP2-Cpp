@@ -133,6 +133,7 @@
     <ClCompile Include="HighPassFilter.cpp" />
     <ClCompile Include="LowPassFilter.cpp" />
     <ClCompile Include="ProjektniZadatak.cpp" />
+    <ClCompile Include="WavGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BandPassFilter.h" />
@@ -140,6 +141,7 @@
     <ClInclude Include="HighPassFilter.h" />
     <ClInclude Include="LowPassFilter.h" />
     <ClInclude Include="ProjektniZadatak.h" />
+    <ClInclude Include="WavGenerator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

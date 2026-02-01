@@ -2,7 +2,7 @@
 #include "LowPassFilter.h"
 #include "HighPassFilter.h"
 #include "BandPassFilter.h"
-
+#include "WavGenerator.h"
 
 void loadMap(std::map<int, double>& lookUpTable) {
     std::ifstream in("sine_table.txt");
@@ -58,25 +58,37 @@ int main(int argc, char* argv[])
     std::vector<double> signal;
     loadMap(lookUpTable);
     loadVector(signal);
+    WavGenerator wav;
+    Filter* filter = nullptr;
+
+    if (argc != 4) {
+        //izlaz iz programa u slucaju pokretanja sa neispravnim argumentima
+        std::cout << "Niste dobro uneli argumente komandne linije!";
+        return 1;
+    }
 
     std::string method = argv[1];
     double alpha = std::stod(argv[2]);
     int mod_deg = std::stoi(argv[3]);
     if (method == "lowpass") {
-        LowPassFilter lpf;
-        lpf.filterSignal(lookUpTable, alpha, mod_deg, signal);
+        filter = new LowPassFilter();
     }
     else if (method == "highpass") {
-        HighPassFilter hpf;
-        hpf.filterSignal();
+        filter = new HighPassFilter();
     }
     else if (method == "bandpass") {
-        BandPassFilter bpf;
-        //bpf.filterSignal();
+        filter = new BandPassFilter();
     }
     else {
         std::cout << "Pogresno uneti argumenti komandne linije!" << std::endl;
+        return 1;
     }
+
+    if (filter != nullptr) {
+        std::vector<double> alteredSignal = filter->filterSignal(lookUpTable, alpha, mod_deg, signal);
+        wav.writeWav("output5.wav", alteredSignal);
+    }
+    delete filter; //oslobadjanje memorije
 
 }
 
